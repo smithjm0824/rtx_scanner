@@ -40,7 +40,7 @@ try:
 
         item = 0
         for element in elements:
-            if element.text != "OUT OF STOCK":
+            if element.text == "OUT OF STOCK":
                 send_msg(links[item])
                 raise StopIteration
             item += 1
