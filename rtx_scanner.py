@@ -4,11 +4,15 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from twilio.rest import Client
 
+GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+
 chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--window-size=1920x1080")
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument("--log-level=3")
-driver = webdriver.Chrome(options=chrome_options)
+chrome_options.binary_location = GOOGLE_CHROME_PATH
+driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, options=chrome_options)
 
 
 def send_msg(link):
