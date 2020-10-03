@@ -4,16 +4,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from twilio.rest import Client
 
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-
-chrome_options = Options()
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument("--log-level=3")
-chrome_options.binary_location = GOOGLE_CHROME_PATH
-driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, options=chrome_options)
-
+CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+chrome_bin = os.environ.get("GOOGLE_CHROME_BIN", "chromedriver")
+options = webdriver.ChromeOptions()
+options.binary_location = chrome_bin
+options.add_argument("--disable-gpu")
+options.add_argument("--no-sandbox")
+options.add_argument("--headless")
+driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=options)
 
 def send_msg(link):
     account_sid = os.environ.get('ACCT_ID')
