@@ -30,8 +30,8 @@ def send_msg(link):
 try:
     while True:
         links = [
-            "https://www.bhphotovideo.com/c/product/1288911-REG/thrustmaster_29607778_t_16000m_fcs_hotas_joystick.html",
             "https://www.bhphotovideo.com/c/product/1433601-REG/logitech_945_000058_g_x56_h_o_t_a_s_rgb.html",
+            "https://www.bhphotovideo.com/c/product/1288911-REG/thrustmaster_29607778_t_16000m_fcs_hotas_joystick.html",
             "https://www.bhphotovideo.com/c/product/743173-REG/Thrustmaster_2960720_Hotas_Warthog_Flight_Stick.html"
         ]
 
