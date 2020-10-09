@@ -1,1 +1,1 @@
-worker: python rtx_scanner.py
+worker: python hotas_scanner.py
