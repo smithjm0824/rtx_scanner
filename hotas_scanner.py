@@ -40,7 +40,7 @@ try:
             value = driver.find_element(By.XPATH, "//button[@data-selenium='notifyAvailabilityButton']").text
 
             if value == "Notify When Available":
-                send_msg(links)
+                send_msg(link)
                 raise StopIteration
 
         time.sleep(10)
