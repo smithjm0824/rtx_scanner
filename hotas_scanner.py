@@ -1,7 +1,8 @@
 import os
 import time
+import sda
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from twilio.rest import Client
 
 CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
@@ -21,32 +22,26 @@ def send_msg(link):
 
     message = client.messages \
                     .create(
-                         body="RTX 3080 available: " + link,
+                         body="HOTAS available: " + link,
                          from_=os.environ.get('SOURCE_NUM'),
                          to=os.environ.get('TARGET_NUM')
                      )
 
 try:
     while True:
-        driver.get("https://www.newegg.com/p/pl?d=rtx+3080")
+        links = [
+            "https://www.bhphotovideo.com/c/product/1288911-REG/thrustmaster_29607778_t_16000m_fcs_hotas_joystick.html",
+            "https://www.bhphotovideo.com/c/product/1433601-REG/logitech_945_000058_g_x56_h_o_t_a_s_rgb.html",
+            "https://www.bhphotovideo.com/c/product/743173-REG/Thrustmaster_2960720_Hotas_Warthog_Flight_Stick.html"
+        ]
 
-        titles = driver.find_elements_by_class_name("item-title")
-        elements = driver.find_elements_by_class_name("item-promo")
+        for link in links:
+            driver.get(link)
+            value = driver.find_element(By.XPATH, "//button[@data-selenium='notifyAvailabilityButton']").text
 
-        item = 0
-        links = {}
-
-        for title in titles:
-            if "3080" in title.text:
-                links[item] = title.get_attribute("href")
-                item += 1
-
-        item = 0
-        for element in elements:
-            if element.text != "OUT OF STOCK":
-                send_msg(links[item])
+            if value == "Notify When Available":
+                send_msg(links)
                 raise StopIteration
-            item += 1
 
         time.sleep(10)
 except StopIteration:
