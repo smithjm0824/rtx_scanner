@@ -28,7 +28,7 @@ def send_msg(link):
 
 try:
     while True:
-        driver.get("https://www.newegg.com/p/pl?d=rtx+3080")
+        driver.get("https://www.newegg.com/p/pl?d=RTX+30&N=50001402%2050001314%2050001312%2050001315")
 
         titles = driver.find_elements_by_class_name("item-title")
         elements = driver.find_elements_by_class_name("item-promo")
@@ -37,9 +37,8 @@ try:
         links = {}
 
         for title in titles:
-            if "3080" in title.text:
-                links[item] = title.get_attribute("href")
-                item += 1
+            links[item] = title.get_attribute("href")
+            item += 1
 
         item = 0
         for element in elements:
